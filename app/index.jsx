@@ -1,39 +1,21 @@
-import { Text, View, Image, Pressable, StyleSheet } from 'react-native';
-import { useState } from "react";
-import Scare from "../components/Scares.jsx";
+import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const goldenFreddy = require("../assets/images/goldenfreddy.png");
 const foxy = require("../assets/images/foxy.webp");
 const chica = require("../assets/images/chica.jpg");
 
-const images = { "goldenFreddy": goldenFreddy, "foxy": foxy, "chica": chica };
-
-import scareData from "../assets/scares.json";
-
 export default function Index() {
-  const [scareIndex, setScareIndex] = useState(0);
+  const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <Scare scareData={scareData[scareIndex]} image={images[scareData[scareIndex].image]} />
+      <View>
+          <Text>Welcome to the Scarefest!</Text>
+          <Button onPress={() => router.navigate('/jumpscare')} title="Jumpscares"></Button>
+         </View>
+      )
+  }
 
-      <View style={styles.buttonContainer}>
-        {[0, 1, 2].map(index => (
-          <Pressable
-            key={index}
-            onPress={() => setScareIndex(index)}
-            style={[
-              styles.button,
-              scareIndex === index && styles.activeButton
-            ]}
-          >
-            <Text style={styles.buttonText}>#{index + 1}</Text>
-          </Pressable>
-        ))}
-      </View>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
